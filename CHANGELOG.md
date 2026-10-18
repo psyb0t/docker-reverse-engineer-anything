@@ -3,6 +3,12 @@
 All notable changes to this project are documented here. The project follows
 [Semantic Versioning](https://semver.org/).
 
+## [0.1.1] - 2026-10-18
+
+### Fixed
+
+- The pipeline started the amd64 and arm64 checks at the same time, and their shared concurrency group cancelled the amd64 run, so v0.1.0 was never built or published. The arm64 checks now run after the amd64 checks. v0.1.1 is the first published release and contains everything listed under 0.1.0.
+
 ## [0.1.0] - 2026-10-18
 
 ### Added

@@ -13,8 +13,11 @@ jobs:
     uses: psyb0t/reusable-github-workflows/.github/workflows/make-checks.yml@master
 
   # The same image test on a native arm64 runner: REA has only verified its
-  # Android path on x86-64, so arm64 is proven here rather than assumed.
+  # Android path on x86-64, so arm64 is proven here rather than assumed. It runs
+  # after `checks` because make-checks.yml uses one concurrency group per ref,
+  # and a second concurrent call would cancel the first.
   checks-arm64:
+    needs: [checks]
     if: github.ref_type == 'branch'
     permissions:
       contents: read

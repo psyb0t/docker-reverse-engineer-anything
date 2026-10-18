@@ -25,3 +25,4 @@ scripts
 .brutal_reviews
 git-update.sh
 git-update.sh.debot
+.telemetry/
