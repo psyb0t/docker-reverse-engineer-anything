@@ -1,0 +1,38 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.psyb0t/reverse-engineer-anything",
+  "title": "Reverse Engineer Anything (Docker)",
+  "description": "REA reverse-engineering MCP server in Docker, with JADX, Apktool and adb for APKs.",
+  "version": "0.0.0",
+  "repository": {
+    "url": "https://github.com/psyb0t/docker-reverse-engineer-anything",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "oci",
+      "identifier": "docker.io/psyb0t/reverse-engineer-anything:latest",
+      "runtimeHint": "docker",
+      "transport": {
+        "type": "streamable-http",
+        "url": "http://localhost:8080/mcp",
+        "headers": [
+          {
+            "name": "Authorization",
+            "description": "Bearer token matching REA_BRIDGE_TOKEN in the container",
+            "isRequired": true,
+            "isSecret": true
+          }
+        ]
+      },
+      "environmentVariables": [
+        {
+          "name": "REA_BRIDGE_TOKEN",
+          "description": "Bearer token clients must send; at least 32 characters",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+# syntax=docker/dockerfile:1
+# Development toolchain for the bridge. `tools` has only Node and pnpm, so the
+# pkg-* targets can create or refresh pnpm-lock.yaml before a lockfile exists.
+# `dev` adds the locked dependencies at /opt/deps, linked from /node_modules so
+# sources mounted at /work resolve them without writing into the workspace.
+ARG NODE_IMAGE=node:24-trixie-slim@sha256:7f486cabe892bff8fef04c0f7da8dba84a560be3e4e2740b7a86afc57ebec315
+
+FROM ${NODE_IMAGE} AS tools
+ENV COREPACK_HOME=/opt/corepack \
+    COREPACK_ENABLE_DOWNLOAD_PROMPT=0 \
+    COREPACK_ENABLE_AUTO_PIN=0 \
+    PNPM_HOME=/tmp/pnpm \
+    npm_config_store_dir=/tmp/pnpm-store
+# corepack checks the pinned pnpm tarball against the sha512 in packageManager.
+WORKDIR /tmp/corepack
+COPY package.json ./package.json
+RUN corepack install -g "$(node -p 'require("./package.json").packageManager')" \
+    && corepack enable pnpm \
+    && chmod -R a+rX /opt/corepack \
+    && rm -rf /tmp/corepack
+WORKDIR /work
+
+FROM tools AS dev
+WORKDIR /opt/deps
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+RUN pnpm install --frozen-lockfile --ignore-scripts \
+    && ln -s /opt/deps/node_modules /node_modules \
+    && chmod -R a+rX /opt/deps
+ENV PATH=/opt/deps/node_modules/.bin:${PATH}
+WORKDIR /work

@@ -1,0 +1,23 @@
+{
+  "name": "reverse-engineer-anything",
+  "version": "0.1.0",
+  "description": "Reverse engineer Android APKs and other software without source code using REA in a locked-down Docker container: JADX decompilation, class search, reference tracing, Apktool resources, adb devices, plus JavaScript/Electron, .NET, Go, Rust, WASM and capture analysis, as a Streamable HTTP MCP server or CLI.",
+  "author": {
+    "name": "psyb0t",
+    "url": "https://github.com/psyb0t"
+  },
+  "homepage": "https://github.com/psyb0t/docker-reverse-engineer-anything",
+  "repository": "https://github.com/psyb0t/docker-reverse-engineer-anything",
+  "license": "WTFPL",
+  "keywords": [
+    "reverse-engineering",
+    "android",
+    "apk",
+    "jadx",
+    "apktool",
+    "decompiler",
+    "mcp",
+    "docker"
+  ],
+  "skills": "./skills/"
+}

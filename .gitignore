@@ -1,0 +1,25 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Build and dependency output (dependencies live in the dev image)
+node_modules/
+dist/
+
+# Test fixtures (downloaded by make fixtures)
+tests/.fixtures/
+
+# Local agent and tooling state
+CLAUDE.md
+.claude
+.research_files/
+.agent_notes/
+.testing/
+.telemetry/
+.plan/
+.plan-and-delegate/
+.anustimes/
+.brutal_reviews/
+git-update.sh
+git-update.sh.debot

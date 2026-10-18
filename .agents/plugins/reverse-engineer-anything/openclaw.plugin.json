@@ -1,0 +1,39 @@
+{
+  "name": "@psyb0t/reverse-engineer-anything",
+  "id": "@psyb0t/reverse-engineer-anything",
+  "version": "0.0.0",
+  "type": "code-plugin",
+  "summary": "Wire an OpenClaw agent to a self-hosted REA reverse-engineering container over MCP.",
+  "description": "A thin stdio<->HTTP bridge that connects an MCP client to a running reverse-engineer-anything container's MCP endpoint (/mcp). The container runs REA (rea-agents, https://github.com/morluto/rea) and exposes its full tool catalog: Android APK analysis through JADX and Apktool (package overview, class search, decompiled classes and methods, reference tracing, decoded resources), adb device tools, JavaScript/Electron, .NET, Go and Rust binary inspection, WASM, SQLite and network captures. You run the container yourself and point this bridge at it; analyze only software you are authorized to examine. See https://github.com/psyb0t/docker-reverse-engineer-anything.",
+  "extensions": ["./bin/cli.js"],
+  "compat": {
+    "pluginApi": ">=2026.3.24-beta.2"
+  },
+  "build": {
+    "openclawVersion": "2026.3.24-beta.2"
+  },
+  "environment": {
+    "REA_URL": {
+      "required": true,
+      "description": "Base URL of your running container, e.g. http://localhost:8080 (the bridge appends /mcp)."
+    },
+    "REA_BRIDGE_TOKEN": {
+      "required": true,
+      "description": "Bearer token the container was started with (REA_BRIDGE_TOKEN). Sent to REA_URL as an Authorization header."
+    }
+  },
+  "configSchema": {
+    "type": "object",
+    "required": ["url", "token"],
+    "properties": {
+      "url": {
+        "type": "string",
+        "description": "Base URL of your running container, e.g. http://localhost:8080 (the bridge appends /mcp)."
+      },
+      "token": {
+        "type": "string",
+        "description": "Bearer token the container was started with (REA_BRIDGE_TOKEN)."
+      }
+    }
+  }
+}

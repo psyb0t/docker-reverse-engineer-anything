@@ -1,0 +1,14 @@
+# Supply-chain settings. scripts/pkg.sh rewrites minimumReleaseAge from the
+# cutoff in release-age-cutoff before every resolution; do not edit it by hand.
+minimumReleaseAge: 10088
+# Exact versions only, also for pnpm update --latest.
+savePrefix: ""
+# Refuse a release that drops the provenance an earlier version had.
+trustPolicy: no-downgrade
+# Transitive dependencies resolve only from the registry, never Git or URLs.
+blockExoticSubdeps: true
+# Lifecycle scripts never run. Nothing in the graph needs one: node-pty ships
+# prebuilt per-platform packages and evmole is WebAssembly.
+onlyBuiltDependencies: []
+strictDepBuilds: true
+updateNotifier: false

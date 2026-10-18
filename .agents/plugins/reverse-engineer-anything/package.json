@@ -1,0 +1,56 @@
+{
+  "name": "@psyb0t/reverse-engineer-anything",
+  "version": "0.0.0",
+  "mcpName": "io.github.psyb0t/reverse-engineer-anything",
+  "description": "Connect an OpenClaw/MCP agent to a self-hosted reverse-engineer-anything (REA in Docker) container over MCP.",
+  "type": "module",
+  "bin": {
+    "reverse-engineer-anything-mcp": "bin/cli.js"
+  },
+  "files": [
+    "bin",
+    "openclaw.plugin.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "license": "MIT",
+  "author": "psyb0t",
+  "homepage": "https://github.com/psyb0t/docker-reverse-engineer-anything",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/psyb0t/docker-reverse-engineer-anything.git"
+  },
+  "bugs": {
+    "url": "https://github.com/psyb0t/docker-reverse-engineer-anything/issues"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "reverse-engineering",
+    "android",
+    "apk",
+    "jadx",
+    "openclaw",
+    "ai-agent"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "mcp-remote": "0.1.38"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "openclaw": {
+    "extensions": [
+      "./bin/cli.js"
+    ],
+    "compat": {
+      "pluginApi": ">=2026.3.24-beta.2"
+    },
+    "build": {
+      "openclawVersion": "2026.3.24-beta.2"
+    }
+  }
+}

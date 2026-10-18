@@ -1,0 +1,35 @@
+name: mirror-and-archive
+
+on:
+  push:
+  # Staggered per repo: Wayback is rate-limited and one save takes ~110s.
+  schedule:
+    - cron: "19 3 27 * *"
+  workflow_dispatch:
+
+jobs:
+  mirror:
+    if: github.event_name == 'push'
+    uses: psyb0t/reusable-github-workflows/.github/workflows/git-mirror.yml@master
+    with:
+      gitlab_enabled: true
+      codeberg_enabled: true
+      # Gitee wants a mobile number bound to the account; without one it creates
+      # the repo private instead of refusing.
+      gitee_enabled: false
+    secrets:
+      gitlab_token: ${{ secrets.GITLAB_TOKEN }}
+      codeberg_token: ${{ secrets.CODEBERG_TOKEN }}
+
+  # Off feature-branch pushes -- the archive is rate-limited.
+  archive:
+    if: >-
+      github.event_name != 'push' ||
+      github.ref_name == github.event.repository.default_branch ||
+      startsWith(github.ref, 'refs/tags/')
+    uses: psyb0t/reusable-github-workflows/.github/workflows/archive.yml@master
+    with:
+      capture_outlinks: true
+    secrets:
+      archiveorg_access_key: ${{ secrets.ARCHIVEORG_ACCESS_KEY }}
+      archiveorg_secret_key: ${{ secrets.ARCHIVEORG_SECRET_KEY }}

@@ -1,0 +1,3 @@
+#!/bin/sh
+# Apktool launcher for REA (REA_APKTOOL_COMMAND).
+exec "${JAVA_HOME}/bin/java" -jar /opt/apktool/apktool.jar "$@"

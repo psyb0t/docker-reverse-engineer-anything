@@ -1,0 +1,9 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Pinned SHA-256 and SHA-512 digests of third-party artifacts, not secrets"
+regexes = [
+  '''sha256:[0-9a-f]{64}''',
+  '''sha512\.[0-9a-f]{128}''',
+]
