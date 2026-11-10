@@ -3,6 +3,18 @@
 All notable changes to this project are documented here. The project follows
 [Semantic Versioning](https://semver.org/).
 
+## [0.1.2] - 2026-11-10
+
+### Added
+
+- The documentation is published at https://psyb0t.github.io/docker-reverse-engineer-anything/, and the configuration, HTTP bridge, security, opt-in tools, agent integration, troubleshooting and development reference moved there from the README.
+- Buy Me a Coffee is in the funding links, and `AGENTS.md` plus the project rules in `.agents/rules/` now cover the whole repository for coding agents.
+
+### Changed
+
+- The badges refresh as soon as the checks pass on `main`, without waiting for the image build.
+- ClawHub and the MCP registry publish only after the GitHub release for the tag exists.
+
 ## [0.1.1] - 2026-10-18
 
 ### Fixed

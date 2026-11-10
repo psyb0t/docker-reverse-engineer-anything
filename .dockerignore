@@ -8,6 +8,7 @@ README.md
 CHANGELOG.md
 LICENSE
 THIRD_PARTY_NOTICES.md
+docs
 Makefile
 node_modules
 dist

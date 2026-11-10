@@ -5,6 +5,8 @@ PROD_IMAGE := psyb0t/reverse-engineer-anything
 TOOLS_IMAGE := psyb0t/reverse-engineer-anything-tools
 DEV_IMAGE := psyb0t/reverse-engineer-anything-dev
 TEST_IMAGE := reverse-engineer-anything:test
+DOCS_SITE := .testing/docs-site
+JEKYLL_IMAGE := ghcr.io/actions/jekyll-build-pages:v1.0.13@sha256:6791ebfd912185ed59bfb5fb102664fa872496b79f87ff8b9cfba292a7345041
 VERSION := $(shell cat VERSION)
 TAG := v$(VERSION)
 UID := $(shell id -u)
@@ -18,7 +20,7 @@ DEV_RUN := docker run --rm --init --user $(UID):$(GID) -e HOME=/tmp \
 	-v $(CURDIR):/work -w /work $(DEV_IMAGE)
 
 .PHONY: help tools-image dev-image shell pkg-lock pkg-add pkg-update pkg-upgrade pkg-remove audit \
-	format lint lint-fix test test-unit test-integration fixtures build build-test run version clean
+	format lint lint-fix test test-unit test-integration fixtures build build-test run docs version clean
 
 help: ## List supported operations
 	@awk 'BEGIN {FS = ":.*## "}; /^[a-zA-Z0-9_.-]+:.*## / {printf "%-18s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -89,6 +91,17 @@ run: build ## Run the bridge on 127.0.0.1:8080 (needs REA_BRIDGE_TOKEN in the en
 		--read-only --tmpfs /tmp:rw,nosuid,size=4g --tmpfs /home/rea:rw,nosuid,size=256m \
 		--cap-drop ALL --security-opt no-new-privileges \
 		-v $(CURDIR)/tests/.fixtures:/work:ro $(PROD_IMAGE):latest
+
+docs: ## Build the documentation site into .testing/docs-site with GitHub's Pages image
+	@mkdir -p $(DOCS_SITE)
+	docker run --rm --user $(UID):$(GID) -e HOME=/tmp \
+		-e GITHUB_WORKSPACE=/work \
+		-e GITHUB_REPOSITORY=psyb0t/docker-reverse-engineer-anything \
+		-e INPUT_SOURCE=docs \
+		-e INPUT_DESTINATION=$(DOCS_SITE) \
+		-e INPUT_VERBOSE=false \
+		-v $(CURDIR):/work \
+		$(JEKYLL_IMAGE)
 
 version: ## Print the version, or set it everywhere with V=X.Y.Z
 ifeq ($(strip $(V)),)

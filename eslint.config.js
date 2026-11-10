@@ -2,7 +2,8 @@ import js from "@eslint/js";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
-  { ignores: ["dist/", "node_modules/"] },
+  // .testing/ holds local build output such as the docs site.
+  { ignores: ["dist/", "node_modules/", ".testing/"] },
   js.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   {

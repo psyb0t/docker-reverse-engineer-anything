@@ -11,9 +11,8 @@ dist/
 tests/.fixtures/
 
 # Local agent and tooling state
-CLAUDE.md
-.claude
 .research_files/
+*.local.json
 .agent_notes/
 .testing/
 .telemetry/
