@@ -1,7 +1,6 @@
 ---
 title: "Agent integrations"
 description: "Install the reverse-engineer-anything skill in Claude Code, Codex or OpenClaw, use its locked-down CLI wrapper, the OpenClaw MCP plugin, and the MCP registry entry."
-nav_order: 8
 ---
 
 # Agent integrations

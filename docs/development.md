@@ -1,7 +1,6 @@
 ---
 title: "Development"
 description: "Repository layout, Make targets, the age-gated pnpm dependency workflow, unit and image integration tests, the CI pipeline and how releases are cut."
-nav_order: 10
 ---
 
 # Development
@@ -31,7 +30,7 @@ make test                       # unit tests, then the image integration test
 make test-unit                  # bridge unit tests only
 make build                      # build psyb0t/reverse-engineer-anything locally
 make run                        # run the bridge on 127.0.0.1:8080 (needs REA_BRIDGE_TOKEN)
-make docs                       # build this site into .testing/docs-site
+make docs                       # build this site into website/build
 make version V=X.Y.Z            # set the version in VERSION and the Codex manifest
 make pkg-update PKG=rea-agents  # move to the newest REA that clears the age gate
 make clean                      # drop the test image, the Ghidra cache volume and fixtures
@@ -84,4 +83,4 @@ The runner needs only Docker, Make and Bash. Nothing in lint or tests needs cred
 
 ## Documentation
 
-This site is `docs/`, built by GitHub Pages from `main` with the Just the Docs theme. `make docs` builds it locally with the same image GitHub uses, into `.testing/docs-site`. Every page needs front matter with a unique `title` and a `description`, and one `#` heading. Links to files outside `docs/` use full GitHub URLs.
+This site is `docs/`, built with Docusaurus from the `website/` directory and published by GitHub Pages from `main`. `make docs` builds it in a pinned Node container into `website/build` and fails on a broken link or heading anchor. After adding or removing a page, update `website/sidebars.mjs` and `website/static/llms.txt`. `make docs-lock` refreshes `website/pnpm-lock.yaml`, and the install refuses packages published in the last seven days. Every page needs front matter with a unique `title` and a `description`, and one `#` heading. Links to files outside `docs/` use full GitHub URLs.

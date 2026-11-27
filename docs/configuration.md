@@ -1,7 +1,6 @@
 ---
 title: "Configuration"
 description: "Every REA_BRIDGE_* and REA_INSTALL environment variable with defaults and valid ranges, plus the REA variables that pass through to REA."
-nav_order: 5
 ---
 
 # Configuration

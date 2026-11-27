@@ -1,10 +1,7 @@
 ---
 title: "Home"
 description: "reverse-engineer-anything runs REA in Docker with JDK 21, JADX, Apktool and adb for APK analysis, behind a token-guarded Streamable HTTP MCP endpoint."
-nav_order: 1
-permalink: /
-seo:
-  type: WebSite
+slug: /
 ---
 
 # reverse-engineer-anything

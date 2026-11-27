@@ -1,0 +1,14 @@
+# reverse-engineer-anything
+
+> A Docker image that packages REA (rea-agents) with JDK 21, JADX, Apktool and adb for APK analysis, Ghidra on demand, and a token-guarded Streamable HTTP MCP bridge.
+
+- [reverse-engineer-anything](https://psyb0t.github.io/docker-reverse-engineer-anything/): reverse-engineer-anything runs REA in Docker with JDK 21, JADX, Apktool and adb for APK analysis, behind a token-guarded Streamable HTTP MCP endpoint.
+- [Running the image](https://psyb0t.github.io/docker-reverse-engineer-anything/running/): Run REA from the image as a Streamable HTTP MCP server, as a stdio MCP server for docker run -i clients, or as one-off REA CLI commands.
+- [What's in the image](https://psyb0t.github.io/docker-reverse-engineer-anything/image/): The REA version, OpenJDK 21, the pinned JADX bridge, Apktool, adb and Node.js in the image, the supported architectures and how updates are gated.
+- [Opt-in tools](https://psyb0t.github.io/docker-reverse-engineer-anything/opt-in-tools/): Install Ghidra on first start with REA_INSTALL=ghidra into a volume, checked against a pinned SHA-256, or point REA at your own Ghidra, IDA or JEB.
+- [Configuration](https://psyb0t.github.io/docker-reverse-engineer-anything/configuration/): Every REA_BRIDGE_* and REA_INSTALL environment variable with defaults and valid ranges, plus the REA variables that pass through to REA.
+- [HTTP bridge](https://psyb0t.github.io/docker-reverse-engineer-anything/http-bridge/): How the Streamable HTTP bridge relays MCP to one rea mcp process per session: endpoints, authentication, session lifecycle, limits, status codes and logs.
+- [Security](https://psyb0t.github.io/docker-reverse-engineer-anything/security/): Why the container is the security boundary for REA, what each docker run hardening flag does, what the bridge enforces, and what to set before exposing it.
+- [Agent integrations](https://psyb0t.github.io/docker-reverse-engineer-anything/agent-integrations/): Install the reverse-engineer-anything skill in Claude Code, Codex or OpenClaw, use its locked-down CLI wrapper, the OpenClaw MCP plugin, and the MCP registry entry.
+- [Troubleshooting](https://psyb0t.github.io/docker-reverse-engineer-anything/troubleshooting/): Exact bridge startup refusals, opt-in tool installer errors and HTTP errors from reverse-engineer-anything, with the cause and the fix for each.
+- [Development](https://psyb0t.github.io/docker-reverse-engineer-anything/development/): Repository layout, Make targets, the age-gated pnpm dependency workflow, unit and image integration tests, the CI pipeline and how releases are cut.

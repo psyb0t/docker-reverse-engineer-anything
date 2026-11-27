@@ -50,7 +50,7 @@ jobs:
   # The called workflow builds only on main/master or tags, so other branches
   # stop after the code jobs. main also tags the image sha-<commit>, so a
   # release tag on that commit can promote it instead of rebuilding.
-  call-docker-image-workflow:
+  docker:
     needs: [code, code-arm64]
     if: "!startsWith(github.ref, 'refs/tags/')"
     permissions:
@@ -64,6 +64,8 @@ jobs:
       # Report scan findings to the Security tab without failing the run, so
       # a tag release can still promote this build.
       scan_fail_build: false
+      dockerhub_private: false
+      sync_description: true
     secrets:
       dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
       dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -92,6 +94,8 @@ jobs:
       # The release job below cuts the release from the tag's own notes.
       create_release: false
       scan_fail_build: false
+      dockerhub_private: false
+      sync_description: true
     secrets:
       dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
       dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -113,6 +117,7 @@ jobs:
     with:
       skill_names: '["reverse-engineer-anything"]'
       plugin_names: "[]"
+      pin_images: '["psyb0t/reverse-engineer-anything"]'
     secrets:
       clawhub_token: ${{ secrets.CLAWHUB_TOKEN }}
 

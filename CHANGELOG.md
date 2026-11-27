@@ -3,6 +3,16 @@
 All notable changes to this project are documented here. The project follows
 [Semantic Versioning](https://semver.org/).
 
+## [0.1.3] - 2026-11-27
+
+### Changed
+
+- The agent skill published to ClawHub, the agent skill registry, names the exact `psyb0t/reverse-engineer-anything` image of the release, by tag and digest, so the wrapper and the setup examples run the image the release pushed.
+- The skill's shell permission points to the container commands in its setup page, and the published wrapper's help text shows the pinned image as its default.
+- The documentation site is generated with Docusaurus instead of Jekyll, both static site generators. `make docs` builds it in a pinned Node container into `website/build` and fails on a broken link or heading anchor, and a new workflow deploys it to GitHub Pages.
+- The pipeline names its image job `docker`, and both image jobs state that the Docker Hub repository stays public and that its description is synced from GitHub.
+- `.agents/rules/` keeps only rules that are specific to this project.
+
 ## [0.1.2] - 2026-11-10
 
 ### Added

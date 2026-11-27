@@ -27,3 +27,4 @@ scripts
 git-update.sh
 git-update.sh.debot
 .telemetry/
+website

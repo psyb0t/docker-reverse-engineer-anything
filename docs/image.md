@@ -1,7 +1,6 @@
 ---
 title: "What's in the image"
 description: "The REA version, OpenJDK 21, the pinned JADX bridge, Apktool, adb and Node.js in the image, the supported architectures and how updates are gated."
-nav_order: 3
 ---
 
 # What's in the image

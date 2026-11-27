@@ -1,7 +1,6 @@
 ---
 title: "Opt-in tools"
 description: "Install Ghidra on first start with REA_INSTALL=ghidra into a volume, checked against a pinned SHA-256, or point REA at your own Ghidra, IDA or JEB."
-nav_order: 4
 ---
 
 # Opt-in tools

@@ -1,7 +1,6 @@
 ---
 title: "HTTP bridge"
 description: "How the Streamable HTTP bridge relays MCP to one rea mcp process per session: endpoints, authentication, session lifecycle, limits, status codes and logs."
-nav_order: 6
 ---
 
 # HTTP bridge

@@ -45,7 +45,7 @@ Request path: client -> `POST /mcp` -> host check -> token check -> body -> `Rea
 | `tests/integration/`                                | `run.sh` and the MCP clients that test the built image against the pinned APK and Ghidra            |
 | `scripts/`                                          | `pkg.sh` (dependency lifecycle), `set-version.sh`, `fetch-fixtures.ts`                              |
 | `release-age-cutoff`, `pnpm-workspace.yaml`         | The release-age gate and pnpm's supply-chain settings                                               |
-| `docs/`                                             | The documentation site (GitHub Pages, Jekyll, Just the Docs)                                        |
+| `docs/`, `website/`                                 | The documentation pages and the Docusaurus site that builds them (GitHub Pages)                     |
 | `.agents/skills/reverse-engineer-anything/`         | The agent skill, its `references/setup.md` and the `scripts/rea.sh` CLI wrapper                     |
 | `.agents/plugins/reverse-engineer-anything/`        | The OpenClaw stdio-to-HTTP MCP plugin (MIT)                                                         |
 | `.agents/.claude-plugin/`, `.agents/.codex-plugin/` | Claude Code and Codex plugin manifests                                                              |
@@ -67,7 +67,7 @@ make test-unit                  # bridge unit tests against the stand-in MCP ser
 make test-integration           # build the image, fetch the APK, run tests/integration/run.sh
 make build                      # build psyb0t/reverse-engineer-anything:v<VERSION> and :latest
 make run                        # run the bridge on 127.0.0.1:8080 (needs REA_BRIDGE_TOKEN)
-make docs                       # build the site into .testing/docs-site
+make docs                       # build the site into website/build
 make version V=X.Y.Z            # set VERSION and the Codex manifest, no commit, no tag
 make pkg-update PKG=rea-agents  # the only way to change a dependency (see supply-chain rule)
 make clean                      # drop the test image, the Ghidra cache volume and fixtures

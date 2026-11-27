@@ -1,7 +1,6 @@
 ---
 title: "Security"
 description: "Why the container is the security boundary for REA, what each docker run hardening flag does, what the bridge enforces, and what to set before exposing it."
-nav_order: 7
 ---
 
 # Security

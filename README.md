@@ -100,7 +100,7 @@ make lint                       # tsc, eslint, prettier, shellcheck, hadolint
 make test                       # bridge unit tests + the image against a real APK
 make build                      # build psyb0t/reverse-engineer-anything locally
 make run                        # run the bridge on 127.0.0.1:8080 (needs REA_BRIDGE_TOKEN)
-make docs                       # build the documentation site into .testing/docs-site
+make docs                       # build the documentation site into website/build
 make pkg-update PKG=rea-agents  # move to the newest REA that clears the age gate
 ```
 

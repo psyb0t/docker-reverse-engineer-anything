@@ -29,7 +29,7 @@ Examples:
   rea.sh --dir ./apks decode-android-resources /work/app.apk
   rea.sh --help
 
-REA_IMAGE overrides psyb0t/reverse-engineer-anything:latest.
+REA_IMAGE overrides the default image (psyb0t/reverse-engineer-anything:latest).
 EOF
 }
 

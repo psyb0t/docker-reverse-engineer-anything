@@ -1,7 +1,6 @@
 ---
 title: "Running the image"
 description: "Run REA from the image as a Streamable HTTP MCP server, as a stdio MCP server for docker run -i clients, or as one-off REA CLI commands."
-nav_order: 2
 ---
 
 # Running the image

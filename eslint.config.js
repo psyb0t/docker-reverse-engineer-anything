@@ -2,8 +2,9 @@ import js from "@eslint/js";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
-  // .testing/ holds local build output such as the docs site.
-  { ignores: ["dist/", "node_modules/", ".testing/"] },
+  // .testing/ holds local caches. website/ is the Docusaurus docs site, which
+  // has its own toolchain.
+  { ignores: ["dist/", "node_modules/", ".testing/", "website/"] },
   js.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   {

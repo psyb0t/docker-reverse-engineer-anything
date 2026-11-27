@@ -5,12 +5,16 @@ PROD_IMAGE := psyb0t/reverse-engineer-anything
 TOOLS_IMAGE := psyb0t/reverse-engineer-anything-tools
 DEV_IMAGE := psyb0t/reverse-engineer-anything-dev
 TEST_IMAGE := reverse-engineer-anything:test
-DOCS_SITE := .testing/docs-site
-JEKYLL_IMAGE := ghcr.io/actions/jekyll-build-pages:v1.0.13@sha256:6791ebfd912185ed59bfb5fb102664fa872496b79f87ff8b9cfba292a7345041
 VERSION := $(shell cat VERSION)
 TAG := v$(VERSION)
 UID := $(shell id -u)
 GID := $(shell id -g)
+DOCS_NODE_IMAGE := node:24.21.0-bookworm-slim@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20
+DOCS_CACHE := .testing/docs-cache
+DOCS_RUN := docker run --rm --init --cap-drop ALL --security-opt no-new-privileges:true \
+	--user $(UID):$(GID) -e HOME=/tmp -e COREPACK_HOME=/cache/corepack \
+	-v "$(CURDIR)/$(DOCS_CACHE):/cache" \
+	-v "$(CURDIR)/docs:/work/docs:ro" -v "$(CURDIR)/website:/work/website" -w /work/website
 
 # Every language command runs in a container: the host needs only Docker,
 # Make, Git and a shell. HOME=/tmp keeps pnpm's state out of the workspace.
@@ -20,7 +24,7 @@ DEV_RUN := docker run --rm --init --user $(UID):$(GID) -e HOME=/tmp \
 	-v $(CURDIR):/work -w /work $(DEV_IMAGE)
 
 .PHONY: help tools-image dev-image shell pkg-lock pkg-add pkg-update pkg-upgrade pkg-remove audit \
-	format lint lint-fix test test-unit test-integration fixtures build build-test run docs version clean
+	format lint lint-fix test test-unit test-integration fixtures build build-test run docs docs-build docs-lock version clean
 
 help: ## List supported operations
 	@awk 'BEGIN {FS = ":.*## "}; /^[a-zA-Z0-9_.-]+:.*## / {printf "%-18s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -92,16 +96,17 @@ run: build ## Run the bridge on 127.0.0.1:8080 (needs REA_BRIDGE_TOKEN in the en
 		--cap-drop ALL --security-opt no-new-privileges \
 		-v $(CURDIR)/tests/.fixtures:/work:ro $(PROD_IMAGE):latest
 
-docs: ## Build the documentation site into .testing/docs-site with GitHub's Pages image
-	@mkdir -p $(DOCS_SITE)
-	docker run --rm --user $(UID):$(GID) -e HOME=/tmp \
-		-e GITHUB_WORKSPACE=/work \
-		-e GITHUB_REPOSITORY=psyb0t/docker-reverse-engineer-anything \
-		-e INPUT_SOURCE=docs \
-		-e INPUT_DESTINATION=$(DOCS_SITE) \
-		-e INPUT_VERBOSE=false \
-		-v $(CURDIR):/work \
-		$(JEKYLL_IMAGE)
+docs: docs-build ## Build the documentation site into website/build, with the link check
+
+docs-build: | $(DOCS_CACHE)
+	$(DOCS_RUN) $(DOCS_NODE_IMAGE) corepack pnpm install --frozen-lockfile --ignore-scripts --store-dir /cache/pnpm
+	$(DOCS_RUN) --network none $(DOCS_NODE_IMAGE) corepack pnpm run build
+
+docs-lock: | $(DOCS_CACHE) ## Refresh website/pnpm-lock.yaml under the dependency age gate
+	$(DOCS_RUN) $(DOCS_NODE_IMAGE) corepack pnpm install --lockfile-only --ignore-scripts --store-dir /cache/pnpm
+
+$(DOCS_CACHE):
+	mkdir -p "$@"
 
 version: ## Print the version, or set it everywhere with V=X.Y.Z
 ifeq ($(strip $(V)),)

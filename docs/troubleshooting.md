@@ -1,7 +1,6 @@
 ---
 title: "Troubleshooting"
 description: "Exact bridge startup refusals, opt-in tool installer errors and HTTP errors from reverse-engineer-anything, with the cause and the fix for each."
-nav_order: 9
 ---
 
 # Troubleshooting

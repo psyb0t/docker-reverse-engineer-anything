@@ -12,7 +12,7 @@ metadata:
         - docker
 permissions:
   filesystem: "Mounts the one directory you name read-only at /work. Writes nothing outside the container except the output you redirect."
-  shell: "Docker, through the bundled wrapper or a docker run you show the user. The CLI wrapper runs with no network, a read-only root and all capabilities dropped."
+  shell: "Docker, through the bundled wrapper or the container commands in references/setup.md. The CLI wrapper runs with no network, a read-only root and all capabilities dropped."
   network: "Docker pulls psyb0t/reverse-engineer-anything from Docker Hub. With REA_INSTALL=ghidra the container downloads Ghidra once from its official GitHub release, checked against a pinned SHA-256. The CLI wrapper runs with --network=none unless --network is passed for adb over TCP or website analysis. The MCP server listens only where the user publishes its port."
 ---
 
